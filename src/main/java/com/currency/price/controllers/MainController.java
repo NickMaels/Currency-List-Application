@@ -50,9 +50,9 @@ public class MainController {
 
         model.addAttribute("currencyList", currencyList);
 
-        model.addAttribute("bankName", "Moldindconbank");
+        model.addAttribute("bankName", "MICB");
 
-        return "currencyPage";
+        return "MICB";
     }
 
     @GetMapping("/MAIB")
@@ -68,7 +68,7 @@ public class MainController {
 
         model.addAttribute("bankName", "MAIB");
 
-        return "currencyPage";
+        return "MAIB";
     }
 
     @GetMapping("/Mobiasbanca")
@@ -84,7 +84,7 @@ public class MainController {
 
         model.addAttribute("bankName", "Mobiasbanca");
 
-        return "currencyPage";
+        return "Mobiasbanca";
     }
 
     @GetMapping("/Victoriabank")
