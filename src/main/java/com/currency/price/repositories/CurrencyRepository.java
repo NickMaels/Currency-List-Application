@@ -1,6 +1,5 @@
 package com.currency.price.repositories;
 
-import com.currency.price.model.MAIB;
 import com.currency.price.parsers.Currency;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
-    @Query(value = "SELECT * FROM CURRENCY WHERE BANK LIKE '%MAIB%' AND DATE =:date", nativeQuery = true)
-    List<Currency> findByBankAndDate(@Param("date") String date);
+    @Query(value = "SELECT * FROM CURRENCY WHERE BANK LIKE :name AND DATE =:date", nativeQuery = true)
+    List<Currency> findByBankAndDate(@Param("date") String date, @Param("name") String name);
 }

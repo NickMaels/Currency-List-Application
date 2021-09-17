@@ -19,8 +19,8 @@ public class CurrencyServiceImpl implements CurrencyService {
     private String currentDate = ParserXML.simpleDateFormat.format(new Date());
 
     @Override
-    public void saveCurrency(List<Currency> currencyList) {
-        if (currencyRepository.findByBankAndDate(currentDate).isEmpty()){
+    public void saveCurrency(List<Currency> currencyList, String bankName) {
+        if (currencyRepository.findByBankAndDate(currentDate, bankName).isEmpty()){
             currencyRepository.saveAll(currencyList);
         }
     }

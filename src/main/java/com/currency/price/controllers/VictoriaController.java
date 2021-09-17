@@ -1,6 +1,5 @@
 package com.currency.price.controllers;
 
-
 import com.currency.price.parsers.Currency;
 import com.currency.price.parsers.UniversalParser;
 import com.currency.price.parsers.nbm.ParserXML;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-public class MICBController {
+public class VictoriaController {
 
     private final UniversalParser universalParser;
 
@@ -25,22 +24,21 @@ public class MICBController {
 
     private final String currentDate = ParserXML.simpleDateFormat.format(new Date());
 
-    @Value("${micb.title}")
+    @Value("${victoria.title}")
     private String bankName;
 
-    @RequestMapping(value = "/save/MICB")
-    public String saveCurrency(@Value("${micb.link}") String link,
-                               @Value("${micb.tag}") String tagName) throws IOException {
+    @RequestMapping(value = "/save/Victoriabank")
+    public String saveCurrency(@Value("${victoria.link}") String link,
+                               @Value("${victoria.tag}") String tagName) throws IOException {
 
 
-        List<Currency> micbList = universalParser.getCurrency(link, tagName).stream()
-                .peek(x -> x.setBank("MICB"))
+        List<Currency> currencyList = universalParser.getCurrency(link, tagName).stream()
+                .peek(x -> x.setBank("Victoriabank"))
                 .peek(x -> x.setDate(currentDate))
                 .collect(Collectors.toList());
 
+        currencyService.saveCurrency(currencyList, bankName);
 
-        currencyService.saveCurrency(micbList, bankName);
-
-        return "redirect:/currency/MICB";
+        return "redirect:/currency/Victoriabank";
     }
 }

@@ -100,6 +100,6 @@ public class MainController {
 
         model.addAttribute("bankName", "Victoriabank");
 
-        return "currencyPage";
+        return "Victoriabank";
     }
 }
