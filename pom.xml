@@ -12,18 +12,19 @@
 	<artifactId>price</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>price</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Check Currency From Bank's sites</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<flyway.user>sa</flyway.user>
 		<flyway.password>password</flyway.password>
-		<flyway.url>jdbc:h2:file:C:\Users\NickMaels\IdeaProjects\Currency-List</flyway.url>
+		<flyway.url>jdbc:h2:file:C:/Users/aiancioglo/OneDrive - ENDAVA/Desktop/price</flyway.url>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -35,22 +36,25 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.13.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.vavr/vavr -->
+
 		<dependency>
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
@@ -67,7 +71,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>

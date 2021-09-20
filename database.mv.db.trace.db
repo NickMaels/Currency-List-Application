@@ -1,4 +1,0 @@
-2021-09-17 20:15:06 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "CURRENCY" не найдена
-Table "CURRENCY" not found; SQL statement:
-SELECT * FROM CURRENCY WHERE BANK LIKE '%MICB%' AND DATE =? [42102-200]

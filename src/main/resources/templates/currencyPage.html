@@ -33,7 +33,7 @@
                     <a class="nav-link" href="/currency/Victoriabank">Victoriabank</a>
                 </li>
                 <li>
-                    <form th:action="@{/save/Mobiasbanca}">
+                    <form th:action="@{/save/{bankName}(bankName=${bankName})}">
                         <button type="submit" class="btn btn-warning">Save</button>
                     </form>
                 </li>
