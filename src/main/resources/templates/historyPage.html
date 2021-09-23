@@ -33,14 +33,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/currency/Victoriabank">Victoriabank</a>
                 </li>
-                <li>
-                    <form th:action="@{/save/{bankName}(bankName=${bankName})}">
-                        <button type="submit" class="btn btn-warning">Save</button>
-                    </form>
-                </li>
-                <li>
-                   <a class="btn btn-success" th:href="@{../story/{bankName}(bankName=${bankName})}">Show History</a>
-                </li>
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -50,6 +42,16 @@
         </div>
     </div>
 </nav>
+
+<form th:method="POST">
+    <label>
+        <select class="form-select" th:name="date">
+            <option th:each="date : ${dateList}"  th:value="${date}" th:text="${date}">
+        </select>
+    </label>
+    <button type="submit" class="btn btn-primary">Find</button>
+</form>
+
 
 <!--Table-->
 
@@ -70,7 +72,6 @@
     </tr>
     </tbody>
 </table>
-
 
 </body>
 </html>

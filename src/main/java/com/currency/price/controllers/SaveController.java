@@ -32,7 +32,6 @@ public class SaveController {
     public String saveCurrency(Model model, @PathVariable("bankName") String bankName) throws IOException {
 
         BankProperties.BankProperty properties = bankProperties.getProperty(bankName);
-        System.out.println(bankProperties.getProperty(bankName).getTitle());
 
         List<Currency> currencyList = universalParser.getCurrency(properties.getLink(), properties.getTag()).stream()
                 .peek(x -> x.setBank(properties.getTitle()))
