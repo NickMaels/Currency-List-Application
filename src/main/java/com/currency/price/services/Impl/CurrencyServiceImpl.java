@@ -20,8 +20,18 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public void saveCurrency(List<Currency> currencyList, String bankName) {
-        if (currencyRepository.findByBankAndDate(dateTimeFormatter.format(LocalDate.now()), bankName).isEmpty()){
+        if (currencyRepository.findByBankAndDate(dateTimeFormatter.format(LocalDate.now()), bankName).isEmpty()) {
             currencyRepository.saveAll(currencyList);
         }
+    }
+
+    @Override
+    public List<Currency> findByBankAndDate(String date, String name) {
+        return currencyRepository.findByBankAndDate(date, name);
+    }
+
+    @Override
+    public List<String> findAllByBank(String name) {
+        return currencyRepository.findAllByBank(name);
     }
 }

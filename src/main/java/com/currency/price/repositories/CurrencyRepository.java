@@ -12,4 +12,7 @@ import java.util.List;
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
     @Query(value = "SELECT * FROM CURRENCY WHERE BANK LIKE :name AND DATE =:date", nativeQuery = true)
     List<Currency> findByBankAndDate(@Param("date") String date, @Param("name") String name);
+
+    @Query(value = "SELECT DISTINCT DATE FROM CURRENCY WHERE BANK LIKE :name", nativeQuery = true)
+    List<String> findAllByBank(@Param("name") String name);
 }
