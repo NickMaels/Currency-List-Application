@@ -34,12 +34,21 @@
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <span class="position-absolute top-0 end-0 my-3 mx-2" th:text="${date}"></span>
+                    <span class="position-absolute top-0 end-0" th:text="${date}"></span>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<form th:method="POST">
+    <label>
+        <select class="form-select" th:name="date">
+            <option th:each="date : ${dateList}"  th:value="${date}" th:text="${date}">
+        </select>
+    </label>
+    <br>
+    <button type="submit" class="px-5 mt-2 btn btn-primary">Find</button>
+</form>
 
 <!--Table-->
 
@@ -48,15 +57,18 @@
     <thead>
     <tr>
         <td>Currency</td>
-        <td>Price</td>
+        <td>Buy</td>
+        <td>Sell</td>
     </tr>
     </thead>
     <tbody>
     <tr th:each="currency : ${currencyList}">
         <td th:text="${currency.getName()}"></td>
-        <td th:text="${currency.getValue()}"></td>
+        <td th:text="${currency.getBuy()}"></td>
+        <td th:text="${currency.getSell()}"></td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

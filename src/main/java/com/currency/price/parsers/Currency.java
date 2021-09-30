@@ -1,10 +1,15 @@
 package com.currency.price.parsers;
 
-import io.vavr.control.Try;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,12 +17,23 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Builder
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Currency {
-    String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    Double buy;
+    private String name;
 
-    Double sell;
+    private Double buy;
+
+    private Double sell;
+
+    private String date;
+
+    private String bank;
 
     public static Currency toCurrency(String string){
         List<String> list = Arrays.stream(string.split(" "))
