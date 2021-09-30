@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Builder
-
 @Entity
-@Table(name = "currency")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Currency {

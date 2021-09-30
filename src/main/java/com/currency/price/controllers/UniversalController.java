@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,7 +32,7 @@ public class UniversalController {
     @GetMapping("/home")
     public String homePage(Model model) throws IOException {
 
-        List<CurrencyNBM> currencyList = parserXML.getCurrencyFromXML(new Date());
+        List<CurrencyNBM> currencyList = parserXML.getCurrencyFromXML(dateTimeFormatter.format(LocalDate.now()));
 
         model.addAttribute("date", dateTimeFormatter.format(LocalDate.now()));
 

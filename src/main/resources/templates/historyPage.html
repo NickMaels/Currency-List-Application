@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Currency List</title>
-    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="shortcut icon" href="../src/main/resources/static/icon.ico" type="image/x-icon">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,16 +40,15 @@
         </div>
     </div>
 </nav>
-
 <form th:method="POST">
     <label>
         <select class="form-select" th:name="date">
             <option th:each="date : ${dateList}"  th:value="${date}" th:text="${date}">
         </select>
     </label>
-    <button type="submit" class="btn btn-primary">Find</button>
+    <br>
+    <button type="submit" class="px-5 mt-2 btn btn-primary">Find</button>
 </form>
-
 
 <!--Table-->
 

@@ -33,7 +33,7 @@ public class HistoryController {
         return "historyPage";
     }
 
-    @RequestMapping(value = "/{bankName}",method = RequestMethod.POST)
+    @RequestMapping(value = "/{bankName}", method = RequestMethod.POST)
     public String getCurrencyByDate(Model model, @PathVariable("bankName") String bankName,
                                     @RequestParam("date") String date) {
 

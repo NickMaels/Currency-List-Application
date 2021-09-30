@@ -6,18 +6,15 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Component
 public class ParserXML {
-    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-    public List<CurrencyNBM> getCurrencyFromXML(Date date) throws IOException {
+    public List<CurrencyNBM> getCurrencyFromXML(String date) throws IOException {
 
-        final String url = "https://www.bnm.md/en/official_exchange_rates?get_xml=1&date=" + simpleDateFormat.format(date);
+        final String url = "https://www.bnm.md/en/official_exchange_rates?get_xml=1&date=" + date;
         Document doc = Jsoup.connect(url).get();
 
         List<CurrencyNBM> currencyNBMList = new ArrayList<>();
