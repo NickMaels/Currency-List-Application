@@ -284,3 +284,16 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/aia
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 35 more
+2022-03-10 15:47:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * FROM CURRENCY 
+
+
+DELETE FROM[*] CURRENCY WHERE DATE ='10.03.2022'"
+Syntax error in SQL statement "SELECT * FROM CURRENCY 
+
+
+DELETE FROM[*] CURRENCY WHERE DATE ='10.03.2022'"; SQL statement:
+SELECT * FROM CURRENCY 
+
+
+delete from currency where date ='10.03.2022' [42000-200]
