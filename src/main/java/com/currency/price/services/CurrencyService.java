@@ -2,10 +2,11 @@ package com.currency.price.services;
 
 import com.currency.price.parsers.Currency;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CurrencyService {
-    void saveCurrency(List<Currency> currencyList, String bankName);
+    void saveCurrency(String bankName) throws IOException;
 
     List<Currency> findByBankAndDate(String date, String name);
 

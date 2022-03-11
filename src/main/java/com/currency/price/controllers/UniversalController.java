@@ -1,9 +1,11 @@
 package com.currency.price.controllers;
 
 import com.currency.price.parsers.Currency;
+import com.currency.price.parsers.VictoriabankParser;
 import com.currency.price.parsers.UniversalParser;
 import com.currency.price.parsers.nbm.CurrencyNBM;
 import com.currency.price.parsers.nbm.ParserXML;
+import com.currency.price.services.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +25,15 @@ public class UniversalController {
 
     private final UniversalParser universalParser;
 
+    private final VictoriabankParser victoriabankParser;
+
     private final BankProperties bankProperties;
 
     private final ParserXML parserXML;
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    private final CurrencyService currencyService;
 
     @GetMapping("/home")
     public String homePage(Model model) throws IOException {
@@ -48,7 +54,20 @@ public class UniversalController {
 
         BankProperties.BankProperty properties = bankProperties.getProperty(bankName);
 
-        List<Currency> currencyList = universalParser.getCurrency(properties.getLink(), properties.getTag());
+        List<Currency> currencyList;
+
+        switch (bankName){
+            case "Victoriabank":{
+                currencyList = victoriabankParser.getCurrency(properties.getLink(), properties.getTag());
+                break;
+            }
+            default:{
+                currencyList = universalParser.getCurrency(properties.getLink(), properties.getTag());
+                break;
+            }
+        }
+
+        currencyService.saveCurrency(bankName);
 
         model.addAttribute("date", dateTimeFormatter.format(LocalDate.now()));
 

@@ -32,11 +32,6 @@
                     <a class="nav-link" href="/currency/Victoriabank">Victoriabank</a>
                 </li>
                 <li>
-                    <form th:action="@{/save/{bankName}(bankName=${bankName})}">
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </form>
-                </li>
-                <li>
                    <a class="mx-2 btn btn-info" th:href="@{../story/{bankName}(bankName=${bankName})}">Show History</a>
                 </li>
             </ul>
