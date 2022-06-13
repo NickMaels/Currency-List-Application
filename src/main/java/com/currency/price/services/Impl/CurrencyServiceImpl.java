@@ -2,8 +2,8 @@ package com.currency.price.services.Impl;
 
 import com.currency.price.controllers.BankProperties;
 import com.currency.price.parsers.Currency;
-import com.currency.price.parsers.UniversalParser;
-import com.currency.price.parsers.VictoriabankParser;
+import com.currency.price.parsers.strategy.StrategyFactory;
+import com.currency.price.parsers.strategy.StrategyParser;
 import com.currency.price.repositories.CurrencyRepository;
 import com.currency.price.services.CurrencyService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +24,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private final BankProperties bankProperties;
 
-    private final VictoriabankParser victoriabankParser;
-
-    private final UniversalParser universalParser;
+    private final StrategyFactory strategyFactory;
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
@@ -38,24 +37,17 @@ public class CurrencyServiceImpl implements CurrencyService {
 
         List<Currency> currencyList;
 
-        if (condition) {
+        StrategyParser strategyParser = strategyFactory.getStrategy(bankName);
 
-            switch (bankName) {
-                case "Victoriabank": {
-                    currencyList = victoriabankParser.getCurrency(properties.getLink(), properties.getTag()).stream()
-                            .peek(x -> x.setBank(properties.getTitle()))
-                            .peek(x -> x.setDate(dateTimeFormatter.format(LocalDate.now())))
-                            .collect(Collectors.toList());
-                    break;
-                }
-                default: {
-                    currencyList = universalParser.getCurrency(properties.getLink(), properties.getTag()).stream()
-                            .peek(x -> x.setBank(properties.getTitle()))
-                            .peek(x -> x.setDate(dateTimeFormatter.format(LocalDate.now())))
-                            .collect(Collectors.toList());
-                    break;
-                }
-            }
+        if (Objects.isNull(strategyParser))
+            strategyParser = strategyFactory.getStrategy("default");
+
+        if (condition) {
+            currencyList = strategyParser.getCurrency(properties.getLink(), properties.getTag()).stream()
+                    .peek(x -> x.setBank(properties.getTitle()))
+                    .peek(x -> x.setDate(dateTimeFormatter.format(LocalDate.now())))
+                    .collect(Collectors.toList());
+
             currencyRepository.saveAll(currencyList);
         }
     }
