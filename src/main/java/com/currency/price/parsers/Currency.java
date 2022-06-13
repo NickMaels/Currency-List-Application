@@ -38,23 +38,18 @@ public class Currency {
     public static Currency toCurrency(String string) {
         List<String> list = Arrays.stream(string.split(" "))
                 .collect(Collectors.toList());
-
-        Currency result;
-
         try {
-            result = Currency.builder()
-                    .name(list.get(0))
-                    .buy(Double.parseDouble(list.get(1)))
-                    .sell(Double.parseDouble(list.get(2)))
-                    .build();
+            return getCurrency(list.get(0), Double.parseDouble(list.get(1)), Double.parseDouble(list.get(2)));
         } catch (NumberFormatException nfe) {
-            result = Currency.builder()
-                    .name(list.get(0))
-                    .buy(0.0)
-                    .sell(0.0)
-                    .build();
+            return getCurrency(list.get(0), 0.0, 0.0);
         }
+    }
 
-        return result;
+    private static Currency getCurrency(String name, Double buy, Double sell) {
+        return Currency.builder()
+                .name(name)
+                .buy(buy)
+                .sell(sell)
+                .build();
     }
 }

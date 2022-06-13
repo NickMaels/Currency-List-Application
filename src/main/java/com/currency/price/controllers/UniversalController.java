@@ -1,10 +1,10 @@
 package com.currency.price.controllers;
 
 import com.currency.price.parsers.Currency;
-import com.currency.price.parsers.VictoriabankParser;
-import com.currency.price.parsers.UniversalParser;
 import com.currency.price.parsers.nbm.CurrencyNBM;
 import com.currency.price.parsers.nbm.ParserXML;
+import com.currency.price.parsers.strategy.StrategyFactory;
+import com.currency.price.parsers.strategy.StrategyParser;
 import com.currency.price.services.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,15 +17,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/currency")
 @RequiredArgsConstructor
 public class UniversalController {
 
-    private final UniversalParser universalParser;
-
-    private final VictoriabankParser victoriabankParser;
+    private final StrategyFactory strategyFactory;
 
     private final BankProperties bankProperties;
 
@@ -56,16 +55,12 @@ public class UniversalController {
 
         List<Currency> currencyList;
 
-        switch (bankName){
-            case "Victoriabank":{
-                currencyList = victoriabankParser.getCurrency(properties.getLink(), properties.getTag());
-                break;
-            }
-            default:{
-                currencyList = universalParser.getCurrency(properties.getLink(), properties.getTag());
-                break;
-            }
-        }
+        StrategyParser strategyParser = strategyFactory.getStrategy(bankName);
+
+        if (Objects.isNull(strategyParser))
+            strategyParser = strategyFactory.getStrategy("default");
+
+        currencyList = strategyParser.getCurrency(properties.getLink(), properties.getTag());
 
         currencyService.saveCurrency(bankName);
 

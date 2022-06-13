@@ -1,5 +1,6 @@
 package com.currency.price.parsers;
 
+import com.currency.price.parsers.strategy.StrategyParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
@@ -10,8 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class VictoriabankParser {
+public class VictoriabankParser implements StrategyParser {
 
+    @Override
     public List<Currency> getCurrency(String link, String tagName) throws IOException {
         Document document = Jsoup.connect(link).get();
 
@@ -27,5 +29,10 @@ public class VictoriabankParser {
         return currencyList.stream()
                 .map(Currency::toCurrency)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getStrategyName() {
+        return "Victoriabank";
     }
 }
