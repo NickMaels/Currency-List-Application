@@ -44,8 +44,10 @@ public class CurrencyServiceImpl implements CurrencyService {
 
         if (condition) {
             currencyList = strategyParser.getCurrency(properties.getLink(), properties.getTag()).stream()
-                    .peek(x -> x.setBank(properties.getTitle()))
-                    .peek(x -> x.setDate(dateTimeFormatter.format(LocalDate.now())))
+                    .peek(x -> {
+                        x.setBank(properties.getTitle());
+                        x.setDate(dateTimeFormatter.format(LocalDate.now()));
+                    })
                     .collect(Collectors.toList());
 
             currencyRepository.saveAll(currencyList);
