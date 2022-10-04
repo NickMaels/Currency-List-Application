@@ -1,8 +1,6 @@
 package com.currency.price.controllers;
 
 import com.currency.price.parsers.Currency;
-import com.currency.price.parsers.nbm.CurrencyNBM;
-import com.currency.price.parsers.nbm.ParserXML;
 import com.currency.price.parsers.strategy.StrategyFactory;
 import com.currency.price.parsers.strategy.StrategyParser;
 import com.currency.price.services.CurrencyService;
@@ -17,7 +15,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/currency")
@@ -28,8 +25,6 @@ public class UniversalController {
 
     private final BankProperties bankProperties;
 
-    private final ParserXML parserXML;
-
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     private final CurrencyService currencyService;
@@ -37,7 +32,8 @@ public class UniversalController {
     @GetMapping("/home")
     public String homePage(Model model) throws IOException {
 
-        List<CurrencyNBM> currencyList = parserXML.getCurrencyFromXML(dateTimeFormatter.format(LocalDate.now()));
+        List<Currency> currencyList = strategyFactory.getStrategy("NBM")
+                .getCurrency(bankProperties.getProperty("NBM").getLink(), dateTimeFormatter.format(LocalDate.now()));
 
         model.addAttribute("date", dateTimeFormatter.format(LocalDate.now()));
 
@@ -53,14 +49,9 @@ public class UniversalController {
 
         BankProperties.BankProperty properties = bankProperties.getProperty(bankName);
 
-        List<Currency> currencyList;
-
         StrategyParser strategyParser = strategyFactory.getStrategy(bankName);
 
-        if (Objects.isNull(strategyParser))
-            strategyParser = strategyFactory.getStrategy("default");
-
-        currencyList = strategyParser.getCurrency(properties.getLink(), properties.getTag());
+        List<Currency> currencyList = strategyParser.getCurrency(properties.getLink(), properties.getTag());
 
         currencyService.saveCurrency(bankName);
 

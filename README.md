@@ -2,11 +2,10 @@
 My Little Project :)
 
 
-My application parse sites of banks from Republic of Moldova and show daily currency price.<br>
-My application provide ability to save daily currency in database for each bank.<br>
-After save you can find currency price by date.<br>
+My application does parsing of banks from the Republic of Moldova and shows the daily price list of currencies.<br>
+Also my application can save daily list of currencies for each bank and provides ability to check history.<br>
 
-<h3>Banks</h3>
+<h3>Supported Banks</h3>
 <ul>
   <li>NBM (National Bank of Moldova)</li>
   <li>MICB (Moldindconbank)</li>
@@ -16,7 +15,7 @@ After save you can find currency price by date.<br>
 </ul>
 
 
-<h3>Technologies</h3>
+<h3>Technologies Stack</h3>
 <ul>
   <li>Spring Boot</li>
   <li>Spring Data</li>
