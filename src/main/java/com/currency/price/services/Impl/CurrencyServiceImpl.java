@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,28 +28,21 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public void saveCurrency(String bankName) throws IOException {
-        boolean condition = currencyRepository.findByBankAndDate(dateTimeFormatter.format(LocalDate.now()), bankName)
-                .isEmpty();
+            boolean condition = currencyRepository.findByBankAndDate(dateTimeFormatter.format(LocalDate.now()), bankName)
+                    .isEmpty();
 
-        BankProperties.BankProperty properties = bankProperties.getProperty(bankName);
+            BankProperties.BankProperty properties = bankProperties.getProperty(bankName);
 
-        List<Currency> currencyList;
+            StrategyParser strategyParser = strategyFactory.getStrategy(bankName);
 
-        StrategyParser strategyParser = strategyFactory.getStrategy(bankName);
-
-        if (Objects.isNull(strategyParser))
-            strategyParser = strategyFactory.getStrategy("default");
-
-        if (condition) {
-            currencyList = strategyParser.getCurrency(properties.getLink(), properties.getTag()).stream()
-                    .peek(x -> {
-                        x.setBank(properties.getTitle());
-                        x.setDate(dateTimeFormatter.format(LocalDate.now()));
-                    })
-                    .collect(Collectors.toList());
-
-            currencyRepository.saveAll(currencyList);
-        }
+            if (condition) {
+                    strategyParser.getCurrency(properties.getLink(), properties.getTag()).stream()
+                            .peek(x -> {
+                                x.setBank(properties.getTitle());
+                                x.setDate(dateTimeFormatter.format(LocalDate.now()));
+                            })
+                            .forEach(currencyRepository::save);
+            }
     }
 
     @Override

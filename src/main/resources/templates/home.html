@@ -54,7 +54,7 @@
     <tbody>
     <tr th:each="currency : ${currencyList}">
         <td th:text="${currency.getName()}"></td>
-        <td th:text="${currency.getValue()}"></td>
+        <td th:text="${currency.getBuy()}"></td>
     </tr>
     </tbody>
 </table>
