@@ -1,6 +1,6 @@
 package com.currency.price.parsers.strategy;
 
-import com.currency.price.parsers.Currency;
+import com.currency.price.model.Currency;
 
 import java.io.IOException;
 import java.util.List;

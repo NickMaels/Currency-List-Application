@@ -1,13 +1,13 @@
 package com.currency.price.controllers;
 
-import com.currency.price.parsers.Currency;
+import com.currency.price.model.Currency;
+import com.currency.price.properties.BankProperties;
 import com.currency.price.services.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,7 +34,7 @@ public class HistoryController {
         return "historyPage";
     }
 
-    @PostMapping("/{bankName}")
+    @GetMapping(value = "/{bankName}", params = "date")
     public String getCurrencyByDate(Model model, @PathVariable("bankName") String bankName,
                                     @RequestParam("date") String date) {
 

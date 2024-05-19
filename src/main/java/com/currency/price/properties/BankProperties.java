@@ -1,4 +1,4 @@
-package com.currency.price.controllers;
+package com.currency.price.properties;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -40,7 +40,7 @@
         </div>
     </div>
 </nav>
-<form th:method="POST">
+<form th:method="GET">
     <label>
         <select class="form-select" th:name="date">
             <option th:each="date : ${dateList}"  th:value="${date}" th:text="${date}">
@@ -63,7 +63,7 @@
     </thead>
     <tbody>
     <tr th:each="currency : ${currencyList}">
-        <td th:text="${currency.getName()}"></td>
+        <td th:text="${currency.getCurrency()}"></td>
         <td th:text="${currency.getBuy()}"></td>
         <td th:text="${currency.getSell()}"></td>
     </tr>
