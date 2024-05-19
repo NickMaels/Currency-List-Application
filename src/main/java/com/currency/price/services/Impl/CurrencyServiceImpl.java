@@ -1,7 +1,7 @@
 package com.currency.price.services.Impl;
 
-import com.currency.price.controllers.BankProperties;
-import com.currency.price.parsers.Currency;
+import com.currency.price.properties.BankProperties;
+import com.currency.price.model.Currency;
 import com.currency.price.parsers.strategy.StrategyFactory;
 import com.currency.price.parsers.strategy.StrategyParser;
 import com.currency.price.repositories.CurrencyRepository;
@@ -37,9 +37,9 @@ public class CurrencyServiceImpl implements CurrencyService {
 
             if (condition) {
                     strategyParser.getCurrency(properties.getLink(), properties.getTag()).stream()
-                            .peek(x -> {
-                                x.setBank(properties.getTitle());
-                                x.setDate(dateTimeFormatter.format(LocalDate.now()));
+                            .peek(currency -> {
+                                currency.setBank(properties.getTitle());
+                                currency.setDate(dateTimeFormatter.format(LocalDate.now()));
                             })
                             .forEach(currencyRepository::save);
             }

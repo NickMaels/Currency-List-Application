@@ -1,7 +1,7 @@
 package com.currency.price.services.Impl;
 
-import com.currency.price.controllers.BankProperties;
-import com.currency.price.parsers.Currency;
+import com.currency.price.properties.BankProperties;
+import com.currency.price.model.Currency;
 import com.currency.price.parsers.UniversalParser;
 import com.currency.price.parsers.strategy.StrategyFactory;
 import com.currency.price.parsers.strategy.StrategyParser;
@@ -64,7 +64,7 @@ class CurrencyServiceImplTest {
         bankProperty = new BankProperties.BankProperty();
         currency = Currency.builder()
                 .id(0)
-                .name("USD")
+                .currency("USD")
                 .bank("MAIB")
                 .buy(0.0)
                 .sell(0.0)
@@ -91,13 +91,13 @@ class CurrencyServiceImplTest {
 
     @Test
     void findByBankAndDateTest() {
-        when(currencyRepository.findByBankAndDate(testDate.toString(), TEST_BANK_NAME)).thenReturn(testCurrencyList);
+        when(currencyRepository.findByBankAndDate(testDate, TEST_BANK_NAME)).thenReturn(testCurrencyList);
 
         List<Currency> currencyList = currencyService.findByBankAndDate(testDate, currency.getBank());
 
         assertAll(
                 () -> assertEquals(testCurrencyList.get(0).getBank(), currencyList.get(0).getBank()),
-                () -> assertEquals(testCurrencyList.get(0).getName(), currencyList.get(0).getName())
+                () -> assertEquals(testCurrencyList.get(0).getCurrency(), currencyList.get(0).getCurrency())
         );
 
         verify(currencyRepository, times(1)).findByBankAndDate(testDate, TEST_BANK_NAME);

@@ -1,8 +1,9 @@
 package com.currency.price.controllers;
 
-import com.currency.price.parsers.Currency;
+import com.currency.price.model.Currency;
 import com.currency.price.parsers.strategy.StrategyFactory;
 import com.currency.price.parsers.strategy.StrategyParser;
+import com.currency.price.properties.BankProperties;
 import com.currency.price.services.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

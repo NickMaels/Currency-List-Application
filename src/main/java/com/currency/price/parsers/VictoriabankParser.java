@@ -1,5 +1,6 @@
 package com.currency.price.parsers;
 
+import com.currency.price.model.Currency;
 import com.currency.price.parsers.strategy.StrategyParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class VictoriabankParser implements StrategyParser {
@@ -24,11 +24,11 @@ public class VictoriabankParser implements StrategyParser {
                 .map(String::trim)
                 .distinct()
                 .limit(5)
-                .collect(Collectors.toList());
+                .toList();
 
         return currencyList.stream()
                 .map(Currency::toCurrency)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

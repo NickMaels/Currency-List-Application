@@ -1,6 +1,6 @@
 package com.currency.price.repositories;
 
-import com.currency.price.parsers.Currency;
+import com.currency.price.model.Currency;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

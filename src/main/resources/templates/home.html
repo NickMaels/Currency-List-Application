@@ -53,7 +53,7 @@
     </thead>
     <tbody>
     <tr th:each="currency : ${currencyList}">
-        <td th:text="${currency.getName()}"></td>
+        <td th:text="${currency.getCurrency()}"></td>
         <td th:text="${currency.getBuy()}"></td>
     </tr>
     </tbody>
